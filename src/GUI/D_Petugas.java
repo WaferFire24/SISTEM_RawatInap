@@ -5,10 +5,12 @@
  */
 package GUI;
 
-/**
- *
- * @author ACER
- */
+import Adapter.AdapterPetugas;
+import Controller.ExecutePetugas;
+import Model.Petugas;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 public class D_Petugas extends javax.swing.JFrame {
 
     /**
@@ -16,6 +18,7 @@ public class D_Petugas extends javax.swing.JFrame {
      */
     public D_Petugas() {
         initComponents();
+        displayall();
     }
 
     /**
@@ -28,15 +31,92 @@ public class D_Petugas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grdPetugas = new javax.swing.JTable();
+        btnRead = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        edtID_Pet = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        edtN_Petugas = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+
+        jLabel1.setText("DATA PETUGAS");
+
+        jToggleButton1.setText("BACK");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("DATA PETUGAS");
+        grdPetugas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "ID", "Nama"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        grdPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grdPetugasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(grdPetugas);
+        if (grdPetugas.getColumnModel().getColumnCount() > 0) {
+            grdPetugas.getColumnModel().getColumn(0).setMinWidth(90);
+            grdPetugas.getColumnModel().getColumn(0).setPreferredWidth(90);
+            grdPetugas.getColumnModel().getColumn(0).setMaxWidth(90);
+        }
+
+        btnRead.setText("Read");
+        btnRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReadActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("ID Petugas");
+
+        jLabel3.setText("Nama");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -44,25 +124,130 @@ public class D_Petugas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jToggleButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtID_Pet, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtN_Petugas, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(25, 25, 25))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRead, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(edtID_Pet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(edtN_Petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRead, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton1))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         MainMenu showMain = new MainMenu();
         showMain.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_formWindowClosed
+        this.dispose();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
+        displayall();
+    }//GEN-LAST:event_btnReadActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        Petugas pts = new Petugas();
+        pts.setID(Integer.parseInt(edtID_Pet.getText()));
+        pts.setNama(edtN_Petugas.getText());
+        ExecutePetugas ep = new ExecutePetugas();
+        String Hasil = ep.InsertPetugas(pts);
+        JOptionPane.showMessageDialog(rootPane, Hasil);
+        displayall();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void grdPetugasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdPetugasMouseClicked
+        int row = grdPetugas.getSelectedRow();
+        edtID_Pet.setText(grdPetugas.getValueAt(row, 0).toString());
+        edtN_Petugas.setText(grdPetugas.getValueAt(row, 1).toString());
+    }//GEN-LAST:event_grdPetugasMouseClicked
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Petugas pts = new Petugas();
+        pts.setID(Integer.parseInt(edtID_Pet.getText()));
+        pts.setNama(edtN_Petugas.getText().toString());
+        
+        ExecutePetugas ep = new ExecutePetugas();
+        String Hasil = ep.UpdatePetugas(pts);
+        JOptionPane.showMessageDialog(rootPane, Hasil);
+        if(Hasil=="Data berhasil diupdate"){
+            edtID_Pet.setText("");
+            edtN_Petugas.setText("");
+            displayall();
+    }//GEN-LAST:event_btnEditActionPerformed
+    }
+    
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int column= grdPetugas.getSelectedColumn();
+        int row = grdPetugas.getSelectedRow();
+        if(column>=0){
+            int confirm = JOptionPane.showConfirmDialog(rootPane, "Benar ingin dihapus?");
+            if (confirm==0){
+                System.out.println("Konfirmasi: "+confirm);
+                Object ID = grdPetugas.getModel().getValueAt(row, 0);
+                ExecutePetugas ep = new ExecutePetugas();
+                ep.DeletePetugas((int)ID);
+                JOptionPane.showMessageDialog(rootPane, "Berhasil Dihapus!");
+                edtID_Pet.setText("");
+                edtN_Petugas.setText("");
+            } else if (confirm==1){
+                edtID_Pet.setText("");
+                edtN_Petugas.setText("");
+                displayall();
+            }
+            displayall();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Silahkan Pilih Data");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,6 +285,37 @@ public class D_Petugas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnRead;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JTextField edtID_Pet;
+    private javax.swing.JTextField edtN_Petugas;
+    private javax.swing.JTable grdPetugas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+    
+    public void displayall(){
+       AdapterPetugas ag = new AdapterPetugas();
+       Object[][] mypts = ag.getAllPts();
+       grdPetugas.setModel(new javax.swing.table.DefaultTableModel(
+        mypts,
+            new String[] {
+                "ID","Nama"
+            }
+        ) {
+            Class[] types = new Class[] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            public Class getColumnClass(int columnIndex){
+                return types[columnIndex];
+            } 
+        });
+        jScrollPane1.setViewportView(grdPetugas);
+    }
+
 }

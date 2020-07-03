@@ -100,7 +100,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPetugasActionPerformed
         D_Petugas showPetugas = new D_Petugas();
         showPetugas.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
         
     }//GEN-LAST:event_btnPetugasActionPerformed
 
@@ -111,7 +111,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnKamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKamarActionPerformed
         D_Kamar showKamar = new D_Kamar();
         showKamar.setVisible(true);
-        this.setVisible(false);        
+        this.dispose();        
     }//GEN-LAST:event_btnKamarActionPerformed
 
     /**
