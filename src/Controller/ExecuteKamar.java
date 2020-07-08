@@ -60,8 +60,8 @@ public class ExecuteKamar {
                 Kamar kam = new Kamar();
                 kam.setKamar(rs.getInt("id_ruangan"));
                 kam.setPasien(rs.getString("n_pasien"));
-                kam.setPenyakit(rs.getString("oenyakit"));
-                kam.setDokter(rs.getString("n_Doter"));
+                kam.setPenyakit(rs.getString("penyakit"));
+                kam.setDokter(rs.getString("n_Dokter"));
                 kam.setPetugas(rs.getInt("id_petugas"));
                 kam.setMasuk(rs.getString("tgl_masuk"));
                 kam.setKeluar(rs.getString("tgl_keluar"));

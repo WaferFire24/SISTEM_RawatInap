@@ -46,7 +46,7 @@ public class D_Kamar extends javax.swing.JFrame {
         dateKeluar = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        edtPerugas = new javax.swing.JTextField();
+        edtPetugas = new javax.swing.JTextField();
         edtDokter = new javax.swing.JTextField();
         btnRead = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -75,6 +75,11 @@ public class D_Kamar extends javax.swing.JFrame {
                 "ID Ruangan", "Nama Pasien", "Penyakit", "Nama Dokter", "ID Petugas", "Tgl. Masuk", "Tgl, Keluar"
             }
         ));
+        grdKamar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grdKamarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(grdKamar);
 
         jLabel2.setText("ID Kamar");
@@ -92,6 +97,10 @@ public class D_Kamar extends javax.swing.JFrame {
         jLabel5.setText("Tgl. Masuk");
 
         jLabel6.setText("Tgl. Keluar");
+
+        dateMasuk.setDateFormatString("dd-MM-yyyy");
+
+        dateKeluar.setDateFormatString("dd-MM-yyyy");
 
         jLabel7.setText("Petugas");
 
@@ -150,7 +159,7 @@ public class D_Kamar extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(edtDokter)
-                            .addComponent(edtPerugas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(edtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +185,7 @@ public class D_Kamar extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(edtID_Kamar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(edtPerugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -226,6 +235,17 @@ public class D_Kamar extends javax.swing.JFrame {
         displayall();
     }//GEN-LAST:event_btnReadActionPerformed
 
+    private void grdKamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdKamarMouseClicked
+        int row = grdKamar.getSelectedRow();
+        edtID_Kamar.setText(grdKamar.getValueAt(row, 0).toString());
+        edtPasien.setText(grdKamar.getValueAt(row, 1).toString());
+        edtPenyakit.setText(grdKamar.getValueAt(row, 2).toString());
+        edtDokter.setText(grdKamar.getValueAt(row, 3).toString());
+        edtPetugas.setText(grdKamar.getValueAt(row, 4).toString());
+        //dateMasuk.setDate(grdKamar.get(row, 5));
+        //dateKeluar.setDate(grdKamar.getValueAt(row, 6));
+    }//GEN-LAST:event_grdKamarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -272,7 +292,7 @@ public class D_Kamar extends javax.swing.JFrame {
     private javax.swing.JTextField edtID_Kamar;
     private javax.swing.JTextField edtPasien;
     private javax.swing.JTextField edtPenyakit;
-    private javax.swing.JTextField edtPerugas;
+    private javax.swing.JTextField edtPetugas;
     private javax.swing.JTable grdKamar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

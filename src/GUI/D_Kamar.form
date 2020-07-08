@@ -67,7 +67,7 @@
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="edtDokter" max="32767" attributes="0"/>
-                          <Component id="edtPerugas" min="-2" pref="156" max="-2" attributes="0"/>
+                          <Component id="edtPetugas" min="-2" pref="156" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -101,7 +101,7 @@
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="edtID_Kamar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="edtPerugas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="edtPetugas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -224,6 +224,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="grdKamarMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -262,8 +265,14 @@
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dateMasuk">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+      </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dateKeluar">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -275,7 +284,7 @@
         <Property name="text" type="java.lang.String" value="Nama Dokter"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="edtPerugas">
+    <Component class="javax.swing.JTextField" name="edtPetugas">
     </Component>
     <Component class="javax.swing.JTextField" name="edtDokter">
     </Component>
