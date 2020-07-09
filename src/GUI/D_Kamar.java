@@ -6,10 +6,18 @@
 package GUI;
 
 import Adapter.AdapterKamar;
+import Controller.ExecuteKamar;
 import Controller.ExecutePetugas;
+import Model.Kamar;
 import Model.Petugas;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class D_Kamar extends javax.swing.JFrame {
 
@@ -114,10 +122,20 @@ public class D_Kamar extends javax.swing.JFrame {
         });
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit");
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,15 +254,70 @@ public class D_Kamar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReadActionPerformed
 
     private void grdKamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdKamarMouseClicked
-        int row = grdKamar.getSelectedRow();
-        edtID_Kamar.setText(grdKamar.getValueAt(row, 0).toString());
-        edtPasien.setText(grdKamar.getValueAt(row, 1).toString());
-        edtPenyakit.setText(grdKamar.getValueAt(row, 2).toString());
-        edtDokter.setText(grdKamar.getValueAt(row, 3).toString());
-        edtPetugas.setText(grdKamar.getValueAt(row, 4).toString());
-        //dateMasuk.setDate(grdKamar.get(row, 5));
-        //dateKeluar.setDate(grdKamar.getValueAt(row, 6));
+        try {
+            int row = grdKamar.getSelectedRow();
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String masuk = grdKamar.getValueAt(row, 5).toString();
+            String keluar = grdKamar.getValueAt(row, 6).toString();
+            Date msk = sdFormat.parse(masuk);
+            Date klr = sdFormat.parse(keluar);
+            edtID_Kamar.setText(grdKamar.getValueAt(row, 0).toString());
+            edtPasien.setText(grdKamar.getValueAt(row, 1).toString());
+            edtPenyakit.setText(grdKamar.getValueAt(row, 2).toString());
+            edtDokter.setText(grdKamar.getValueAt(row, 3).toString());
+            edtPetugas.setText(grdKamar.getValueAt(row, 4).toString());
+            //System.out.print(grdKamar.getValueAt(row, 5).toString());
+            dateMasuk.setDate(msk);
+            dateKeluar.setDate(klr);
+        } catch (ParseException ex) {
+            Logger.getLogger(D_Kamar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_grdKamarMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int column= grdKamar.getSelectedColumn();
+        int row = grdKamar.getSelectedRow();
+        if(column>=0){
+            int confirm = JOptionPane.showConfirmDialog(rootPane, "Benar ingin dihapus?");
+            if (confirm==0){
+                System.out.println("Konfirmasi: "+confirm);
+                Object ID = grdKamar.getModel().getValueAt(row, 0);
+                ExecuteKamar ek = new ExecuteKamar();
+                ek.DeletePetugas((int)ID);
+                JOptionPane.showMessageDialog(rootPane, "Berhasil Dihapus!");
+                edtID_Kamar.setText("");
+                edtPasien.setText("");
+                edtPenyakit.setText("");
+                edtDokter.setText("");
+                edtPetugas.setText("");
+            } else if (confirm==1){
+                edtID_Kamar.setText("");
+                edtPasien.setText("");
+                edtPenyakit.setText("");
+                edtDokter.setText("");
+                edtPetugas.setText("");
+                displayall();
+            }
+            displayall();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Silahkan Pilih Data");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        Kamar kmr = new Kamar();
+        kmr.setKamar(Integer.parseInt(edtID_Kamar.getText()));
+        kmr.setPasien(edtPasien.getText());
+        kmr.setPenyakit(edtPenyakit.getText());
+        kmr.setDokter(edtDokter.getText());
+        kmr.setPetugas(Integer.parseInt(edtPetugas.getText()));
+        kmr.setMasuk(dateMasuk.toString());
+        kmr.setKeluar(dateKeluar.toString());
+        ExecuteKamar ek = new ExecuteKamar();
+        String Hasil = ek.InsertKamar(kmr);
+        JOptionPane.showMessageDialog(rootPane, Hasil);
+        displayall();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments

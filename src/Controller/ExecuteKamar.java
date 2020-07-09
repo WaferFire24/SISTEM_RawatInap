@@ -93,7 +93,7 @@ public class ExecuteKamar {
     
      public String DeletePetugas(int id){
         String hasil = "";
-        String query = "delete from id_ruangan where id_ruangan='"+id+"'";
+        String query = "delete from ruangan where id_ruangan='"+id+"'";
         ConnectionManager conMan = new ConnectionManager();
         Connection conn = conMan.Logon();
         try {
