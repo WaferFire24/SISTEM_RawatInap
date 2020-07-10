@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 public class ExecuteKamar {
     public String InsertKamar(Kamar kmr){
         String query ="INSERT INTO ruangan(id_ruangan, n_pasien, penyakit, n_dokter, id_petugas, tgl_masuk, tgl_keluar)" + 
-                " VALUES(?,?,?,?,?,?,TO_DATE(?, DD/MM/YYYY))";
+                " VALUES(?,?,?,?,?,?,?)";
         ConnectionManager conMan = new ConnectionManager();
         Connection conn = conMan.Logon();
         String Respon;
@@ -36,8 +35,8 @@ public class ExecuteKamar {
             pstm.setString(3, kmr.getPenyakit());
             pstm.setString(4, kmr.getDokter());
             pstm.setInt(5, kmr.getPetugas());
-            pstm.setString(6, kmr.getMasuk());
-            pstm.setString(7, kmr.getKeluar());
+            pstm.setString(6, kmr.getMasuk().toString());
+            pstm.setString(7, kmr.getKeluar().toString());
             pstm.executeUpdate();
             Respon="Data berhasil disimpan";
         } catch (SQLException ex) {
@@ -63,8 +62,8 @@ public class ExecuteKamar {
                 kam.setPenyakit(rs.getString("penyakit"));
                 kam.setDokter(rs.getString("n_Dokter"));
                 kam.setPetugas(rs.getInt("id_petugas"));
-                kam.setMasuk(rs.getString("tgl_masuk"));
-                kam.setKeluar(rs.getString("tgl_keluar"));
+                kam.setMasuk(rs.getDate("tgl_masuk"));
+                kam.setKeluar(rs.getDate("tgl_keluar"));
                 arrlist.add(kam);
             }
         } catch (SQLException ex){
@@ -76,7 +75,8 @@ public class ExecuteKamar {
 
     public String UpdateKamar(Kamar kmr){
         String hasil = "";
-        String query = "update ruangan SET id_ruangan='" + kmr.getKamar() + "'";
+        String query = "update ruangan SET n_pasien='" + kmr.getPasien() + "', penyakit='" + kmr.getPenyakit()+ "', n_dokter='" + kmr.getDokter()
+                    + "', id_petugas='" + kmr.getPetugas() + "', tgl_masuk='" + kmr.getMasuk()+ "', tgl_keluar='" + kmr.getKeluar()+"' where id_ruangan='" + kmr.getKamar() + "'";
         ConnectionManager conMan = new ConnectionManager();
         Connection conn = conMan.Logon();
         try {

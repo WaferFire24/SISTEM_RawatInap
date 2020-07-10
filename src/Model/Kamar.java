@@ -1,8 +1,10 @@
 package Model;
+import java.util.Date;
 
 public class Kamar {
-    private String Pasien, Penyakit, Dokter, Masuk, Keluar;
+    private String Pasien, Penyakit, Dokter;
     private int Kamar, Petugas;
+    private Date Masuk, Keluar;
 
     public Kamar() {
     }
@@ -15,19 +17,19 @@ public class Kamar {
         this.Petugas = Petugas; 
     }
 
-    public String getMasuk() {
+    public Date getMasuk() {
         return Masuk;
     }
 
-    public void setMasuk(String Masuk) {
+    public void setMasuk(Date Masuk) {
         this.Masuk = Masuk;
     }
 
-    public String getKeluar() {
+    public Date getKeluar() {
         return Keluar;
     }
 
-    public void setKeluar(String Keluar) {
+    public void setKeluar(Date Keluar) {
         this.Keluar = Keluar;
     }
 

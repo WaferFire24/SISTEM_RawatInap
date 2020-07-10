@@ -7,9 +7,7 @@ package GUI;
 
 import Adapter.AdapterKamar;
 import Controller.ExecuteKamar;
-import Controller.ExecutePetugas;
 import Model.Kamar;
-import Model.Petugas;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
@@ -129,6 +127,11 @@ public class D_Kamar extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -311,13 +314,43 @@ public class D_Kamar extends javax.swing.JFrame {
         kmr.setPenyakit(edtPenyakit.getText());
         kmr.setDokter(edtDokter.getText());
         kmr.setPetugas(Integer.parseInt(edtPetugas.getText()));
-        kmr.setMasuk(dateMasuk.toString());
-        kmr.setKeluar(dateKeluar.toString());
+        dateMasuk.setDateFormatString("dd-MM-yyyy");
+        java.sql.Date msk = new java.sql.Date(dateMasuk.getDate().getTime());
+        kmr.setMasuk(msk);
+        dateKeluar.setDateFormatString("dd-MM-yyyy");
+        java.sql.Date klr = new java.sql.Date(dateMasuk.getDate().getTime());
+        kmr.setKeluar(klr);
         ExecuteKamar ek = new ExecuteKamar();
         String Hasil = ek.InsertKamar(kmr);
         JOptionPane.showMessageDialog(rootPane, Hasil);
         displayall();
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Kamar kmr = new Kamar();
+        kmr.setKamar(Integer.parseInt(edtID_Kamar.getText().toString()));
+        kmr.setPasien(edtPasien.getText().toString());
+        kmr.setPenyakit(edtPenyakit.getText().toString());
+        kmr.setDokter(edtDokter.getText().toString());
+        kmr.setPetugas(Integer.parseInt(edtPetugas.getText().toString()));
+        dateMasuk.setDateFormatString("dd-MM-yyyy");
+        java.sql.Date msk = new java.sql.Date(dateMasuk.getDate().getTime());
+        kmr.setMasuk(msk);
+        dateKeluar.setDateFormatString("dd-MM-yyyy");
+        java.sql.Date klr = new java.sql.Date(dateMasuk.getDate().getTime());
+        kmr.setKeluar(klr);
+        ExecuteKamar ek = new ExecuteKamar();
+        String Hasil = ek.UpdateKamar(kmr);
+        JOptionPane.showMessageDialog(rootPane, Hasil);
+        if(Hasil=="Berhasil"){
+            edtID_Kamar.setText("");
+            edtPasien.setText("");
+            edtPenyakit.setText("");
+            edtDokter.setText("");
+            edtPetugas.setText("");
+            displayall();
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
