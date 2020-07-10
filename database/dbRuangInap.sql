@@ -13,25 +13,29 @@
 
 
 -- Dumping database structure for db_ruanginap
+DROP DATABASE IF EXISTS `db_ruanginap`;
 CREATE DATABASE IF NOT EXISTS `db_ruanginap` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `db_ruanginap`;
 
 -- Dumping structure for table db_ruanginap.petugas_kamar
+DROP TABLE IF EXISTS `petugas_kamar`;
 CREATE TABLE IF NOT EXISTS `petugas_kamar` (
   `id_petugas` int(5) NOT NULL AUTO_INCREMENT,
   `nama_petugas` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_petugas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Daftar petugas kamar rawat inap\r\n';
 
--- Dumping data for table db_ruanginap.petugas_kamar: ~3 rows (approximately)
+-- Dumping data for table db_ruanginap.petugas_kamar: ~4 rows (approximately)
 /*!40000 ALTER TABLE `petugas_kamar` DISABLE KEYS */;
 INSERT INTO `petugas_kamar` (`id_petugas`, `nama_petugas`) VALUES
-	(101, 'Diah'),
-	(102, 'Uzumaki'),
-	(103, 'Udin');
+	(101, 'abidin'),
+	(102, 'Saleh'),
+	(104, 'Ibnu'),
+	(105, 'Ijar');
 /*!40000 ALTER TABLE `petugas_kamar` ENABLE KEYS */;
 
 -- Dumping structure for table db_ruanginap.ruangan
+DROP TABLE IF EXISTS `ruangan`;
 CREATE TABLE IF NOT EXISTS `ruangan` (
   `id_ruangan` int(3) NOT NULL AUTO_INCREMENT,
   `n_pasien` varchar(50) DEFAULT NULL,
@@ -45,10 +49,12 @@ CREATE TABLE IF NOT EXISTS `ruangan` (
   CONSTRAINT `FK_ruangan_petugas_kamar` FOREIGN KEY (`id_petugas`) REFERENCES `petugas_kamar` (`id_petugas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_ruanginap.ruangan: ~0 rows (approximately)
+-- Dumping data for table db_ruanginap.ruangan: ~3 rows (approximately)
 /*!40000 ALTER TABLE `ruangan` DISABLE KEYS */;
 INSERT INTO `ruangan` (`id_ruangan`, `n_pasien`, `penyakit`, `n_dokter`, `id_petugas`, `tgl_masuk`, `tgl_keluar`) VALUES
-	(202, 'Ember', 'Kudis', 'Hendra', 102, '2020-07-02', '2020-07-03');
+	(200, 'Storm', 'Kejang-kejang', 'Nurdin', 102, '2020-07-09', '2020-07-11'),
+	(201, 'Bara', 'Jantung', 'Saiful', 105, '2020-07-09', '2020-10-10'),
+	(203, 'Raja', 'Asma', 'Syahputra', 104, '2019-03-04', '2019-03-04');
 /*!40000 ALTER TABLE `ruangan` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
