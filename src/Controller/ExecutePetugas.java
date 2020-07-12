@@ -65,7 +65,7 @@ public class ExecutePetugas {
 
     public String UpdatePetugas(Petugas pts){
          String hasil = "";
-         String query = "update petugas_kamar SET nama_petugas='" + pts.getNama() + "'";
+         String query = "update petugas_kamar SET nama_petugas='" + pts.getNama() + "' where id_petugas='" + pts.getID() + "'";
         // 
         ConnectionManager conMan = new ConnectionManager();
         Connection conn = conMan.Logon();
