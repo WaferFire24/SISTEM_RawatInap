@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Adapter;
 
 import Controller.ExecutePetugas;
 import Model.Petugas;
 import java.util.List;
 
-/**
- *
- * @author Nada
- */
 public class AdapterPetugas {
     public Object[][] getAllPts(){
       ExecutePetugas em = new ExecutePetugas();

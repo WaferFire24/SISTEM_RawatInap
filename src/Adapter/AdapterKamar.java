@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Adapter;
 
 import Controller.ExecuteKamar;
 import Model.Kamar;
 import java.util.List;
 
-/**
- *
- * @author Nada
- */
 public class AdapterKamar {
     public Object[][] getAllPts(){
       ExecuteKamar em = new ExecuteKamar();
